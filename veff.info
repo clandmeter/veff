@@ -1,3 +1,5 @@
 name = Views exposed filter fieldset
 description = Wrap views exposed filter inside a fieldset
 core = 7.x
+configure = admin/config/user-interface/veff
+depends[] = views

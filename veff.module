@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function veff_menu() {
+    $items['admin/config/user-interface/veff'] = array(
+        'title' => 'Views exposed filter fieldset',
+        'description' => 'Adds a fieldset around views exposed filters.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('veff_settings_form'),
+        'access arguments' => array('administer veff'),
+        'type' => MENU_NORMAL_ITEM,
+        'file' => 'veff.admin.inc',
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function veff_preprocess_views_view(&$vars) {
+    $enabled_views = variable_get('veff_enabled_views', array());
+    if (in_array($vars['view']->name, $enabled_views)) {
+        // Wrap exposed filters in a fieldset.
+        if ($vars['exposed']) {
+            drupal_add_js('misc/form.js');
+            drupal_add_js('misc/collapse.js');
+            // Default collapsed
+            $collapsed = TRUE;
+            $class = array('collapsible', 'collapsed');
+            if (count($_GET) > 1) {
+                // assume other get vars are exposed filters, so expand fieldset
+                // to show applied filters
+                $collapsed = FALSE;
+                $class = array('collapsible');
+            }
+            $fieldset['element'] = array(
+                '#title' => 'Refine your search',
+                '#collapsible' => TRUE,
+                '#collapsed' => $collapsed,
+                '#attributes' => array('class' => $class),
+                '#children' => $vars['exposed'],
+            );
+            $vars['exposed'] = theme('fieldset', $fieldset);
+        }
+    }
+}
