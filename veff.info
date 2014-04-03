@@ -1,4 +1,4 @@
-name = Views exposed filter fieldset
+name = Views Exposed Filter Fieldset
 description = Wrap views exposed filter inside a fieldset
 core = 7.x
 package = Views
