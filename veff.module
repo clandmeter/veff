@@ -36,7 +36,7 @@ function veff_preprocess_views_view(&$vars) {
                 $class = array('collapsible');
             }
             $fieldset['element'] = array(
-                '#title' => 'Refine your search',
+                '#title' => t('Refine your search'),
                 '#collapsible' => TRUE,
                 '#collapsed' => $collapsed,
                 '#attributes' => array('class' => $class),
