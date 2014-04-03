@@ -46,3 +46,15 @@ function veff_preprocess_views_view(&$vars) {
         }
     }
 }
+
+/**
+ * Implements hook_permission().
+ */
+function veff_permission() {
+    return array(
+        'administer veff' => array(
+            'title' => t('Administer VEFF'),
+            'description' => t('Administer VEFF settings.'),
+        ),
+    );
+}
