@@ -18,12 +18,7 @@ function veff_settings_form() {
         '#title' => t('Fieldset name'),
         '#description' => t('The name of the fieldset surrounding the exposed filter'),
         '#default_value' => variable_get('veff_fieldset_name', 'Refine your search'),
+        '#required' => TRUE,
     );
     return system_settings_form($form);
-}
-
-function verff_setttings_form_validate($form, &$form_state) {
-    if ($form_state['values']['veff_fieldset_name'] == '') {
-        form_set_error('name', t('You must provide a fieldset name!'));
-    }
 }
